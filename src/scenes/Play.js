@@ -21,6 +21,7 @@ class Play extends Phaser.Scene {
                 },
                 
                 }
+                this.Text = this.add.text(game.config.width/2, game.config.height/2 - 80, 'press SPACE to roll dice', this.textConfig).setOrigin(0.5);
                 this.pointText = this.add.text(game.config.width/2, game.config.height/2, 'dicesum', this.textConfig).setVisible(0).setOrigin(0.5);
                this.teext = this.add.text(game.config.width/2, game.config.height/2+110, 'Come Out Roll', this.textConfig).setOrigin(0.5);
                this.texxt = this.add.text(game.config.width/2, game.config.height/2+110, 'point', this.textConfig).setVisible(0).setOrigin(0.5);
