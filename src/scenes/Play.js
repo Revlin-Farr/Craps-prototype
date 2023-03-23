@@ -21,11 +21,11 @@ class Play extends Phaser.Scene {
                 },
                 
                 }
-                this.Text = this.add.text(game.config.width/2, game.config.height/2 - 80, 'press SPACE to roll dice', this.textConfig).setOrigin(0.5);
-                this.pointText = this.add.text(game.config.width/2, game.config.height/2, 'dicesum', this.textConfig).setVisible(0).setOrigin(0.5);
-               this.teext = this.add.text(game.config.width/2, game.config.height/2+110, 'Come Out Roll', this.textConfig).setOrigin(0.5);
-               this.texxt = this.add.text(game.config.width/2, game.config.height/2+110, 'point', this.textConfig).setVisible(0).setOrigin(0.5);
-               this.teexxt = this.add.text(game.config.width/2, game.config.height/2-80, 'Game over, press up to reset', this.textConfig).setVisible(0).setOrigin(0.5);
+                this.Instrcutions = this.add.text(game.config.width/2, game.config.height/2 - 80, 'Press SPACE to roll dice', this.textConfig).setOrigin(0.5); //how to roll dice
+                this.sumText = this.add.text(game.config.width/2, game.config.height/2, 'dicesum', this.textConfig).setVisible(0).setOrigin(0.5); //displays dice roll total
+               this.ComeoutText = this.add.text(game.config.width/2, game.config.height/2+110, 'Come Out Roll', this.textConfig).setOrigin(0.5); //displays if it's a come out roll
+               this.PointText = this.add.text(game.config.width/2, game.config.height/2+110, 'point', this.textConfig).setVisible(0).setOrigin(0.5); //Displays the current point
+               this.Fail = this.add.text(game.config.width/2, game.config.height/2-80, 'Game over, press up to reset', this.textConfig).setVisible(0).setOrigin(0.5);
                 
                 
 
@@ -46,24 +46,24 @@ class Play extends Phaser.Scene {
                 this.point = this.diceSum;
                 this.coRoll= false;
                 this.rollNumber = this.rollnum
-                this.texxt.setText('The Point is:' + this.point)
-                this.texxt.setVisible(1)
-                this.teext.setVisible(0)
+                this.PointText.setText('The Point is:' + this.point) //updates current point
+                this.PointText.setVisible(1)
+                this.ComeoutText.setVisible(0)
                 
             }
         }
     }
         if (!this.coRoll){
-            if(this.point == this.diceSum && this.rollNumber !=this.rollnum ){
+            if(this.point == this.diceSum && this.rollNumber !=this.rollnum ){ //updates new Come out roll
                 this.coRoll = true;
                 this.point = 0;
                 this.rollNumber = this.rollnum;
-                this.texxt.setVisible(0);
-                this.teext.setVisible(1);
+                this.PointText.setVisible(0);
+                this.ComeoutText.setVisible(1);
             }
         }
         if(this.gameOver){
-            this.teexxt.setVisible(1);
+            this.Fail.setVisible(1);
             this.diceSum = 0;
         if(Phaser.Input.Keyboard.JustDown(this.keyUP)){
             this.scene.start("playScene");
@@ -74,11 +74,12 @@ class Play extends Phaser.Scene {
     shoot(){
         this.die1 = Phaser.Math.Between(1,6);
         this.die2 = Phaser.Math.Between(1,6);
+        this.sound.play('sfx_dice');
         
         this.diceSum = this.die1 + this.die2;
         this.rollnum++;
-        this.pointText.setText('The roll is:' +this.diceSum);
-        this.pointText.setVisible(1);
+        this.sumText.setText('The roll is:' +this.diceSum); //updates current roll
+        this.sumText.setVisible(1);
         return this.diceSum;
     }
 
